@@ -27,8 +27,6 @@ var modalContentLogin = document.getElementsByClassName("modal__content__login")
 var modalBottomLoginBtn = document.getElementsByClassName("modal-footer__to-login-btn")[0];
 
 var captcha = document.getElementById("captcha");
-modalBottomRegBtn.before(captcha);
-
 
 modalBottomRegBtn.onclick = function() {
   modalContentRegistration.style.display = "block";
@@ -44,6 +42,13 @@ modalBottomLoginBtn.onclick = function() {
 
   modalContentLogin.style.display = "block";
   modalBottomLoginBtn.disabled = true;
+}
+
+function onRecaptchaSubmit(token) {
+  if (!modalBottomRegBtn.disabled)
+    document.getElementById("regForm").submit();
+  else if (!modalBottomLoginBtn.disabled)
+    document.getElementById("loginForm").submit();
 }
 
 var regForm = document.getElementById("regForm");
@@ -185,15 +190,4 @@ function showErrorWithCustomValidity(element, text) {
 
 function hideError() {
   document.getElementById("formError").style.display = "none";
-}
-
-
-// reCAPTCHA
-function onClick(e) {
-  e.preventDefault();
-  grecaptcha.ready(function() {
-    grecaptcha.execute('reCAPTCHA_site_key', {action: 'submit'}).then(function(token) {
-        // Add your logic to submit to your backend server here.
-    });
-  });
 }
