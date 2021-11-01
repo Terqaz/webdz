@@ -44,13 +44,6 @@ modalBottomLoginBtn.onclick = function() {
   modalBottomLoginBtn.disabled = true;
 }
 
-function onRecaptchaSubmit(token) {
-  if (!modalBottomRegBtn.disabled)
-    document.getElementById("regForm").submit();
-  else if (!modalBottomLoginBtn.disabled)
-    document.getElementById("loginForm").submit();
-}
-
 var regForm = document.getElementById("regForm");
 
 regForm.name.addEventListener('input', function (event) {
@@ -121,7 +114,7 @@ function checkPasswordsEqValidity(password, repeatPassword) {
   return cond;
 }
 
-regForm.addEventListener('submit', function (event) {
+function onRecaptchaSubmitRegistration(token) {
   var password = regForm.password.value;
   var repeatPassword = regForm.repeatPassword.value;
 
@@ -137,8 +130,7 @@ regForm.addEventListener('submit', function (event) {
     +'\nPhone number: '    + regForm.phone.value
     +'\nPassword: '        + password
     +'\nRepeat password: ' + repeatPassword); 
-});
-
+}
 
 var loginForm = document.getElementById("loginForm");
 
@@ -156,7 +148,7 @@ loginForm.password.addEventListener('input', function (event) {
   }
 });
 
-loginForm.addEventListener('submit', function (event) {
+function onRecaptchaSubmitLogin(token) {
   for (var i = 0; i < loginForm.length; i++) {
     if (!loginForm[i].validity.valid) {
       event.preventDefault();
@@ -166,7 +158,7 @@ loginForm.addEventListener('submit', function (event) {
   console.log('Login: '
     +'\nEmail: '    + loginForm.email.value 
     +'\nPassword: ' + loginForm.password.value);
-});
+}
 
 function checkEmailValidity(email) {
   if (!email.validity.valid) {
