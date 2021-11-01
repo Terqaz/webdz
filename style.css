@@ -347,7 +347,7 @@ button[disabled] {
     margin-top: 10px;
     padding-left: 25px;
     padding-right: 25px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     box-shadow: 0 3px 3px 0 dimgray;
 }
 
@@ -368,6 +368,17 @@ button[disabled] {
     text-align: center;
     font-size: 0.7em;
     color: var(--interaction-color);
+}
+
+.form__recaptcha-label {
+    color: lightgray;
+    font-size: 0.55rem;
+    margin-bottom: 30px;
+}
+
+.form__recaptcha-label a {
+    color: lightgray;
+    text-decoration: underline;
 }
 
 @media (max-width: 850px) {

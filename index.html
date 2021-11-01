@@ -125,12 +125,15 @@
 				     		<label class="form__agreement__label">Принимаю согласие на обработку персональных данных*</label>
 				     	</div>
 
-				     	<button class="g-recaptcha" 
-				     	        data-sitekey="6Lfq4gkdAAAAAHh8fPBwksGdQZYgWTN9MfxB7FOy" 
-				     	        data-callback='onRecaptchaSubmit' 
-				     	        data-action='submit'>Submit</button>
-
-				     	<input type="submit" class="form__submit-btn" value="Зарегистрироваться">
+				     	<input type="submit" class="g-recaptcha form__submit-btn" value="Зарегистрироваться"
+						     	data-sitekey="6Lfq4gkdAAAAAHh8fPBwksGdQZYgWTN9MfxB7FOy" 
+						     	data-callback='onRecaptchaSubmit' 
+						     	data-action='submit'>
+						<p class="form__recaptcha-label">
+							This site is protected by reCAPTCHA and the Google
+							   <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+							   <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+						</p>
 				    </form>
 			    </div>
 			</div>
@@ -147,7 +150,15 @@
 				     	<label class="form__label">Пароль*</label>
 				     	<input type="password" class="form__text-input" name="password" required>
 
-				     	<input type="submit" class="form__submit-btn" value="Войти">
+				     	<input type="submit" class="g-recaptcha form__submit-btn" value="Войти"
+						     	data-sitekey="6Lfq4gkdAAAAAHh8fPBwksGdQZYgWTN9MfxB7FOy" 
+						     	data-callback='onRecaptchaSubmit' 
+						     	data-action='submit'>
+						<p class="form__recaptcha-label">
+							This site is protected by reCAPTCHA and the Google
+							   <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+							   <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+						</p>
 				    </form>
 			    </div>
 			</div>
