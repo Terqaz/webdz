@@ -26,12 +26,7 @@ $sql = 'SELECT id, creation_date, url FROM screenshot
 $screenshot = $web3kursPdo->prepare($sql);
 $screenshot->bindValue(':cardId', $cardId, PDO::PARAM_STR);
 $screenshot->execute();			
-
-if ($screenshot->rowCount() === 0): ?>
-	<p class="not-found"> Этот скриншот не найден <br/> :( </p>
-
-<?php else: ?>
-<?php $screenshot = $screenshot->fetch(PDO::FETCH_ASSOC) ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,10 +53,16 @@ if ($screenshot->rowCount() === 0): ?>
 		</header>
 		<main class="content">
 			<div class="content__screenshot-wrapper">
-				<p class="content__screenshot-description">СКРИНШОТ ОТ <?= $screenshot['creation_date'] ?></p>
-				<div class="screenshot__wrapper">
-					<img src=<?= $screenshot['url'] ?> alt="" class="screenshot__wrapper__content">
-				</div>
+				<?php if ($screenshot->rowCount() === 0):  ?>
+					<p class="content__screenshot-description">Этот скриншот не найден :( </p>
+
+				<?php else: ?>
+				<?php $screenshot = $screenshot->fetch(PDO::FETCH_ASSOC) ?>
+					<p class="content__screenshot-description">СКРИНШОТ ОТ <?= $screenshot['creation_date'] ?></p>
+					<div class="screenshot__wrapper">
+						<img src=<?= $screenshot['url'] ?> alt="" class="screenshot__wrapper__content">
+					</div>
+				<?php endif; ?>
 			</div>
 		</main>
 		<footer class="footer">
@@ -140,5 +141,3 @@ if ($screenshot->rowCount() === 0): ?>
 	</div>
 </body>
 </html>
-
-<?php endif; ?>

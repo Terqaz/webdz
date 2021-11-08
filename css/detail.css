@@ -19,6 +19,11 @@
 .screenshot__wrapper {
     display: flex;
     justify-content: center;
-    width: 92vw;
+    max-width: 92vw;
     margin-bottom: 30px;
+}
+
+.screenshot__wrapper__content {
+    width: 100%;
+    height: auto;
 }

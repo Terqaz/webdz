@@ -189,7 +189,7 @@ button[disabled] {
 }
 
 .autoscroll-trigger {
-    display: flex;
+    display: none;
     justify-content: center;
     width: 100%;
 }

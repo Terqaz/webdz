@@ -22,6 +22,7 @@ function scrollMore() {
  
   if (wt + wh >= et || wh + wt == dh || eh + et < wh){
     block_show = true;
+    $('#autoscroll-trigger').css('display', 'flex')
 
     let lastId = $('.screenshot-card').filter(':last').attr('data-id'); 
     lastId = (lastId === undefined) ? 0 : lastId
@@ -30,6 +31,7 @@ function scrollMore() {
       url: '/ajax.php?lastid=' + lastId,  
       dataType: 'html',
       success: function(data){
+        $('#autoscroll-trigger').css('display', 'none')
         $('#autoscroll-trigger').before(data);
         block_show = false;
       }
