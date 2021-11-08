@@ -1,3 +1,5 @@
+// Обработка формы
+
 var mask = document.getElementsByClassName("mask")[0];
 var modal = document.getElementsByClassName("modal__wrapper")[0];
 var authBtn = document.getElementsByClassName("auth-btn")[0];
@@ -26,8 +28,6 @@ var modalBottomRegBtn = document.getElementsByClassName("modal-footer__to-regist
 var modalContentLogin = document.getElementsByClassName("modal__content__login")[0];
 var modalBottomLoginBtn = document.getElementsByClassName("modal-footer__to-login-btn")[0];
 
-var captcha = document.getElementById("captcha");
-
 modalBottomRegBtn.onclick = function() {
   modalContentRegistration.style.display = "block";
   modalBottomRegBtn.disabled = true;
@@ -43,6 +43,8 @@ modalBottomLoginBtn.onclick = function() {
   modalContentLogin.style.display = "block";
   modalBottomLoginBtn.disabled = true;
 }
+
+// Валидация
 
 var regForm = document.getElementById("regForm");
 
@@ -114,7 +116,7 @@ function checkPasswordsEqValidity(password, repeatPassword) {
   return cond;
 }
 
-function onRecaptchaSubmitRegistration(token) {
+regForm.addEventListener('submit', function (event) {
   var password = regForm.password.value;
   var repeatPassword = regForm.repeatPassword.value;
 
@@ -130,7 +132,8 @@ function onRecaptchaSubmitRegistration(token) {
     +'\nPhone number: '    + regForm.phone.value
     +'\nPassword: '        + password
     +'\nRepeat password: ' + repeatPassword); 
-}
+});
+
 
 var loginForm = document.getElementById("loginForm");
 
@@ -148,7 +151,8 @@ loginForm.password.addEventListener('input', function (event) {
   }
 });
 
-function onRecaptchaSubmitLogin(token) {
+
+loginForm.addEventListener('submit', function (event) {
   for (var i = 0; i < loginForm.length; i++) {
     if (!loginForm[i].validity.valid) {
       event.preventDefault();
@@ -158,7 +162,7 @@ function onRecaptchaSubmitLogin(token) {
   console.log('Login: '
     +'\nEmail: '    + loginForm.email.value 
     +'\nPassword: ' + loginForm.password.value);
-}
+});
 
 function checkEmailValidity(email) {
   if (!email.validity.valid) {

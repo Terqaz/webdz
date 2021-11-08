@@ -41,14 +41,18 @@ body {
 
 .wrapper {
     display: flex;
-    flex-wrap: wrap;
-    /*width: 100%;*/
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
+    min-height: 100vh;
 }
 
 .header {
     position: fixed;
+    overflow: hidden;
+
     width: 100%;
     background: var(--header-color);
     box-shadow: 0 7px 25px 0 var(--header-color);
@@ -56,15 +60,18 @@ body {
     -webkit-backdrop-filter: blur( 11.5px );
 
     height: 45px;
-
-    overflow: hidden;
 }
 
 .header__wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+
     align-items: center;
     height: 100%;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 60px;
+    padding-right: 60px;
 }
 
 .logo {
@@ -109,6 +116,7 @@ button[disabled] {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .content__description {
@@ -118,9 +126,14 @@ button[disabled] {
     margin-bottom: 60px;
 }
 
-.content__wrapper_rows {
+.content__wrapper__rows {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+
+    width: 85vw;
 
     margin-left: auto;
     margin-right: auto;
@@ -128,24 +141,10 @@ button[disabled] {
     margin-bottom: 30px;
 }
 
-.content__wrapper_row + .content__wrapper_row {
-    margin-top: 4vw;
-}
-
-.content__wrapper_row {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-}
-
 .content__wrapper__load-more-btn {
     width: 100%;
     margin-top: 60px;
     box-shadow: 0 1px 5px 0 dimgray;
-}
-
-.screenshot-card + .screenshot-card {
-    margin-left: 3vw;
 }
 
 .screenshot-card {
@@ -156,6 +155,8 @@ button[disabled] {
 
     width: 40vw;
     height: 100%;
+
+    margin-bottom: 3vw;
 
     padding-bottom: 10px;
 
@@ -187,30 +188,55 @@ button[disabled] {
     box-shadow: 0 1px 2px 0 dimgray;
 }
 
+.autoscroll-trigger {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.autoscroll-trigger__gif {
+    width: 50px;
+    height: auto;
+}
+
+.stop-scroll {
+    display: none;
+}
+
 .footer {
     width: 100%;
+
+    margin-top: auto;
+
     background: var(--footer-color);
     box-shadow: 0 7px 25px 0 var(--footer-color);
     backdrop-filter: blur( 11.5px );
     -webkit-backdrop-filter: blur( 11.5px );
 }
 
-.footer_wrapper {
-    height: 65px;
+.footer__wrapper {
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
+
+    width: 100%;
+    height: 65px;
+
+    margin-left: auto;
+    margin-right: auto;
 
     padding-left: 30px;
     padding-right: 30px;
 }
 
-.footer_wrapper__email {
+.footer__wrapper__email {
     margin-right: 4vw;
 }
 
 .mask {
-    display: none; /*Скрыто по умолчанию */
-    position: fixed; /* Оставаться на месте */
+    display: none;
+    position: fixed;
     z-index: 1000;
     left: 0;
     top: 0;
@@ -230,6 +256,7 @@ button[disabled] {
     width: 100%;
     height: 100%;
     z-index: 1001;
+    overflow: auto;
 }
 
 .modal__content {
@@ -244,7 +271,10 @@ button[disabled] {
     overflow: hidden;
     border-radius: 25px;
 
-    margin: 100px auto;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
     padding-top: 20px;
 
     width: 50%; 
@@ -282,7 +312,6 @@ button[disabled] {
 }
 
 .modal__content__registration {
-    /*display: none;*/
     visibility: visible;
 }
 
@@ -351,10 +380,13 @@ button[disabled] {
     box-shadow: 0 3px 3px 0 dimgray;
 }
 
+.g-recaptcha__wrapper {
+    margin-top: 10px;
+}
+
 .modal-footer {
     display: flex;
     flex-direction: row;
-
 }
 
 .modal-footer__btn {
@@ -370,29 +402,17 @@ button[disabled] {
     color: var(--interaction-color);
 }
 
-.form__recaptcha-label {
-    color: lightgray;
-    font-size: 0.55rem;
-    margin-bottom: 30px;
-}
-
-.form__recaptcha-label a {
-    color: lightgray;
-    text-decoration: underline;
-}
-
 @media (max-width: 850px) {
-    .content__wrapper_row {
+    .content__wrapper__rows {
         flex-direction: column;
-    }
-
-    .screenshot-card + .screenshot-card {
-        margin-left: 0vw;
-        margin-top: 4vw;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: flex-start;
     }
 
     .screenshot-card {
-        width: 70vw;
+        width: 100%;
+        margin-bottom: 5vw;
     }
 }
 
