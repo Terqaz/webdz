@@ -1,44 +1,25 @@
 <?php
 
-include "pdo.php";
+require_once "phpclasses/pdo/ScreenshotPdo.php";
+require_once "phpclasses/Validation.php";
 
-try {
-    $web3kursPdo = DBConnect\getWeb3kursPdo();
-} catch (Exception $exception) {
-    echo "Ошибка подключения к БД: " . $exception->getMessage();
+$lastId = @$_GET['lastid'];
+
+if ($lastId != 0 && !Validation::checkId($lastId)) {
+    header('Location: /index.php');
     exit;
 }
 
-$isPrivate = 0;
-$limit = 10;
-$lastId = intval(@$_GET['lastid']);
-
-$sql = null;
-
-if (is_numeric($lastId) && $lastId != 0) {
-    $sql = 'SELECT id, creation_date, url FROM screenshot 
-			WHERE id < :lastId && is_private=:isPrivate
-			ORDER BY id DESC 
-			LIMIT :lim';
-    $screenshots = $web3kursPdo->prepare($sql);
-    $screenshots->bindValue(':lastId', $lastId, PDO::PARAM_STR);
-} else {
-    $sql = 'SELECT id, creation_date, url FROM screenshot 
-			WHERE is_private=:isPrivate
-			ORDER BY id DESC 
-			LIMIT :lim';
-    $screenshots = $web3kursPdo->prepare($sql);
+try {
+    $screenshotPdo = new ScreenshotPdo();
+} catch (Exception $exception) {
+    echo "Fatal error: " . $exception->getMessage();
+    exit;
 }
 
-$screenshots->bindValue(':isPrivate', $isPrivate, PDO::PARAM_BOOL);
-$screenshots->bindValue(':lim', $limit, PDO::PARAM_INT);
+$screenshots = $screenshotPdo->getScreenshots($lastId, 10);
 
-$screenshots->execute();
-
-if ($screenshots->rowCount() === 0): ?>
-	<div class="stop-scroll"></div>
-
-<?php else: ?>
+if ($screenshots->rowCount() !== 0): ?>
 	<?php while ($screenshot = $screenshots->fetch(PDO::FETCH_ASSOC)): ?>
 		<div  class="screenshot-card" data-id=<?= $screenshot['id'] ?> onclick="location.href='<?= '/detail.php?id='.$screenshot['id'] ?>';">
 			<div class="screenshot-card__image-wrapper">

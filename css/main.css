@@ -74,6 +74,10 @@ body {
     padding-right: 60px;
 }
 
+.header__hello-user {
+    margin-right: 25px;
+}
+
 .logo {
     color: white;
     margin-right: auto;
@@ -376,7 +380,7 @@ button[disabled] {
     margin-top: 10px;
     padding-left: 25px;
     padding-right: 25px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     box-shadow: 0 3px 3px 0 dimgray;
 }
 
@@ -387,6 +391,7 @@ button[disabled] {
 .modal-footer {
     display: flex;
     flex-direction: row;
+    margin-top: 10px;
 }
 
 .modal-footer__btn {

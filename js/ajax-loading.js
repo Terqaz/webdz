@@ -2,13 +2,6 @@ var block_show = false;
  
 function scrollMore() {
   let $target = $('#autoscroll-trigger');
-  
-  if ($('.stop-scroll').length > 1) {
-    $(window).scroll(undefined);
-    $(document).ready(undefined);
-    $target.remove();
-    return false;
-  }
 
   if (block_show) {
     return false;
@@ -31,8 +24,14 @@ function scrollMore() {
       url: '/ajax.php?lastid=' + lastId,  
       dataType: 'html',
       success: function(data){
-        $('#autoscroll-trigger').css('display', 'none')
-        $('#autoscroll-trigger').before(data);
+        if (data.length !== 0) {
+          $('#autoscroll-trigger').css('display', 'none')
+          $('#autoscroll-trigger').before(data);
+        } else {
+          $(window).off('scroll');
+          $(document).off('ready');
+          $target.remove();
+        }
         block_show = false;
       }
     });

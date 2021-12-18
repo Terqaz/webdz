@@ -44,12 +44,12 @@ modalBottomLoginBtn.onclick = function() {
   modalBottomLoginBtn.disabled = true;
 }
 
-// Валидация
+// Валидация формы регистрации
 
-var regForm = document.getElementById("regForm");
+var regFormElement = document.getElementById("regForm");
 
-regForm.name.addEventListener('input', function (event) {
-  var name = regForm.name;
+regFormElement.name.addEventListener('input', function (event) {
+  var name = regFormElement.name;
 
   if (!name.validity.valid) {
     showError(name, "Введите корректное имя");
@@ -58,12 +58,12 @@ regForm.name.addEventListener('input', function (event) {
   }
 });
 
-regForm.email.addEventListener('input', function (event) {
-  checkEmailValidity(regForm.email);
+regFormElement.email.addEventListener('input', function (event) {
+  checkEmailValidity(regFormElement.email);
 });
 
-regForm.phone.addEventListener('input', function (event) {
-  var phone = regForm.phone;
+regFormElement.phone.addEventListener('input', function (event) {
+  var phone = regFormElement.phone;
 
   if (!phone.validity.valid) {
     showError(phone, "Введите корректный номер телефона");
@@ -72,18 +72,18 @@ regForm.phone.addEventListener('input', function (event) {
   }
 });
 
-regForm.password.addEventListener('input', function (event) {
-  var password = regForm.password;
-  var repeatPassword = regForm.repeatPassword;
+regFormElement.password.addEventListener('input', function (event) {
+  var password = regFormElement.password;
+  var repeatPassword = regFormElement.repeatPassword;
 
   if (checkPasswordValidity(password)){
     checkPasswordsEqValidity(password, repeatPassword);
   }
 });
 
-regForm.repeatPassword.addEventListener('input', function (event) {
-  var password = regForm.password;
-  var repeatPassword = regForm.repeatPassword;
+regFormElement.repeatPassword.addEventListener('input', function (event) {
+  var password = regFormElement.password;
+  var repeatPassword = regFormElement.repeatPassword;
 
   if (!checkPasswordsEqValidity(password, repeatPassword)) {
     checkPasswordValidity(password);
@@ -116,33 +116,16 @@ function checkPasswordsEqValidity(password, repeatPassword) {
   return cond;
 }
 
-regForm.addEventListener('submit', function (event) {
-  var password = regForm.password.value;
-  var repeatPassword = regForm.repeatPassword.value;
+// Валидация формы логина
 
-  for (var i = 0; i < regForm.length; i++) {
-    if (!regForm[i].validity.valid) {
-      event.preventDefault();
-      return;
-    }
-  }
-  console.log('Register: ' 
-    +'\nName: '            + regForm.name.value 
-    +'\nEmail: '           + regForm.email.value 
-    +'\nPhone number: '    + regForm.phone.value
-    +'\nPassword: '        + password
-    +'\nRepeat password: ' + repeatPassword); 
+var loginFormElement = document.getElementById("loginForm");
+
+loginFormElement.email.addEventListener('input', function (event) {
+  checkEmailValidity(loginFormElement.email);
 });
 
-
-var loginForm = document.getElementById("loginForm");
-
-loginForm.email.addEventListener('input', function (event) {
-  checkEmailValidity(loginForm.email);
-});
-
-loginForm.password.addEventListener('input', function (event) {
-  let password = loginForm.password;
+loginFormElement.password.addEventListener('input', function (event) {
+  let password = loginFormElement.password;
   if (password.value.length == 0) {
     showErrorWithCustomValidity(password, "Введите корректный пароль");
   } else {
@@ -150,27 +133,6 @@ loginForm.password.addEventListener('input', function (event) {
     password.setCustomValidity("");
   }
 });
-
-
-loginForm.addEventListener('submit', function (event) {
-  for (var i = 0; i < loginForm.length; i++) {
-    if (!loginForm[i].validity.valid) {
-      event.preventDefault();
-      return;
-    }
-  }
-  console.log('Login: '
-    +'\nEmail: '    + loginForm.email.value 
-    +'\nPassword: ' + loginForm.password.value);
-});
-
-function checkEmailValidity(email) {
-  if (!email.validity.valid) {
-    showError(email, "Введите корректный email");
-  } else {
-    hideError();
-  }
-}
 
 function showError(element, text) {
   let formError = document.getElementById("formError");
@@ -186,4 +148,85 @@ function showErrorWithCustomValidity(element, text) {
 
 function hideError() {
   document.getElementById("formError").style.display = "none";
+}
+
+// Отправка данных форм
+
+regFormElement.addEventListener('submit', function (event) {
+  var password = regFormElement.password.value;
+  var repeatPassword = regFormElement.repeatPassword.value;
+
+  for (var i = 0; i < regFormElement.length; i++) {
+    if (!regFormElement[i].validity.valid) {
+      event.preventDefault();
+      return;
+    }
+  }
+
+  event.preventDefault();
+
+  let registerForm = new FormData();
+  registerForm.append('name', regFormElement.name.value);
+  registerForm.append('email', regFormElement.email.value);
+  registerForm.append('phone', regFormElement.phone.value);
+  registerForm.append('password', password);
+
+  fetch('register.php', {
+       method: 'POST',
+       body: registerForm
+    }
+  )
+  .then(response => response.json())
+  .then(result => {
+    if (result.errors) {
+       showError(document.getElementById("regForm"), result.errors);
+       event.preventDefault();
+
+    } else { // успешная регистрация, обновляем страницу
+      hideError();
+      location.href = location.href;
+    }
+  })
+  .catch(error => console.log(error));
+});
+
+
+loginFormElement.addEventListener('submit', function (event) {
+  for (var i = 0; i < loginFormElement.length; i++) {
+    if (!loginFormElement[i].validity.valid) {
+      event.preventDefault();
+      return;
+    }
+  }
+
+  let loginForm = new FormData();
+  loginForm.append('email', loginFormElement.email.value);
+  loginForm.append('password', loginFormElement.password.value);
+
+  event.preventDefault();
+
+  fetch('login.php', {
+       method: 'POST',
+       body: loginForm
+    }
+  )
+  .then(response => response.json())
+  .then(result => {
+    if (result.errors) {
+       showError(document.getElementById("loginForm"), result.errors);
+
+    } else { // успешный вход, обновляем страницу
+      hideError();
+      location.href = location.href;
+    }
+  })
+  .catch(error => console.log(error));
+});
+
+function checkEmailValidity(email) {
+  if (!email.validity.valid) {
+    showError(email, "Введите корректный email");
+  } else {
+    hideError();
+  }
 }
