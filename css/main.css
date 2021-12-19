@@ -78,6 +78,10 @@ body {
     margin-right: 25px;
 }
 
+.header__load-file-btn {
+    margin-right: 15px;
+}
+
 .logo {
     color: white;
     margin-right: auto;
@@ -324,15 +328,15 @@ button[disabled] {
     visibility: visible;
 }
 
-.modal-body__form {
+.form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.form__agreement {
+.form__checkbox-wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     overflow: hidden;
 
@@ -344,10 +348,6 @@ button[disabled] {
 .form__agreement__label {
     font-size: 0.6em;
     text-align: right;
-}
-
-.form__label {
-    margin-top: 10px;
 }
 
 .form__text-input {
@@ -374,6 +374,7 @@ button[disabled] {
 }
 
 .form__checkbox-input {
+    margin-right: 15px;
 }
 
 .form__submit-btn {

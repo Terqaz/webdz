@@ -1,0 +1,69 @@
+.form-file-loading {
+	width: 60vw;
+	margin-left: auto;
+	margin-right: auto;
+	justify-self: center;
+}
+
+.input__wrapper {
+  	width: 100%;
+  	position: relative;
+  	text-align: center;
+}
+ 
+.input__file {
+  	opacity: 0;
+  	visibility: hidden;
+  	position: absolute;
+  	box-shadow: 0 3px 3px 0 dimgray;
+}
+ 
+.input__file-icon-wrapper {
+  	height: 60px;
+  	width: 60px;
+  	margin-right: 15px;
+  	display: flex;
+  	align-items: center;
+  	justify-content: center;
+  	border-right: 1px solid #000000;
+}
+ 
+.input__file-button-text {
+  	line-height: 1;
+  	margin-top: 1px;
+}
+
+.file__format-text {
+	margin-top: 10px;
+	font-size: 0.8rem;
+}
+ 
+.input__file-button {
+  	width: 100%;
+  	max-width: 290px;
+  	height: 60px;
+  	background: #FFB468;
+  	color: #000000;
+  	font-size: 1.125rem;
+  	
+  	display: flex;
+  	align-items: center;
+  	justify-content: flex-start;
+  	border-radius: 3px;
+  	cursor: pointer;
+  	margin: 0 auto;
+}
+
+.file-form__g-recaptcha__wrapper {
+	margin-top: 40px;
+}
+
+.content__screenshot-loading-description {
+	font-family: Verdana, sans-serif
+	font-size: 2.4rem;
+    font-weight: 600;
+	width: 60vw;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}

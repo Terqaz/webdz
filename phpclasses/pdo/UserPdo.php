@@ -13,15 +13,16 @@ class UserPdo extends PdoOrigin
         $emailsCount->bindValue(':email', $email, PDO::PARAM_STR);
         $emailsCount->execute();
         $emailsCount = $emailsCount->fetch(PDO::FETCH_ASSOC);
-        return $emailsCount['emails_count'] >= 1; // мб это массив с один элементом
+        return $emailsCount['emails_count'] >= 1;
     }
 
     public function save($user)
     {
-        $sql = "INSERT INTO `user`(`id`, `name`, `email`, `phone`, `password_hash`) 
+        $sql = "INSERT INTO `user`
+                    (`id`, `name`, `email`, `phone`, `password_hash`) 
                 VALUES (:id, :name, :email, :phone, :passwordHash)";
 
-        $randomId = substr(uniqid('', true), 0, 8);
+        $randomId = $this->generateId();
 
         $phone = implode(array_filter(
             str_split($user['phone']),

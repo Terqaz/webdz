@@ -41,4 +41,23 @@ class ScreenshotPdo extends PdoOrigin
 
         return $screenshot;
     }
+
+    public function save($path, $isPrivate)
+    {
+        $sql = "INSERT INTO `screenshot` 
+                    (`id`, `creation_date`, `is_private`, `url`) 
+                VALUES (:id, :creationDate, :isPrivate, :url)";
+
+        $randomId = $this->generateId();
+        $creationDate = date('Y-m-d H:i:s');
+
+        $insert = $this->pdo->prepare($sql);
+        $insert->bindValue(':id', $randomId, PDO::PARAM_STR);
+        $insert->bindValue(':creationDate', $creationDate, PDO::PARAM_STR);
+        $insert->bindValue(':isPrivate', $isPrivate, PDO::PARAM_INT);
+        $insert->bindValue(':url', $path, PDO::PARAM_STR);
+        $insert->execute();
+
+        return $randomId;
+    }
 }

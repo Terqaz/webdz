@@ -19,4 +19,9 @@ class PdoOrigin
             array( PDO::ATTR_PERSISTENT => true )
         );
     }
+
+    public function generateId()
+    {
+        return substr(uniqid('', true), 0, 8);
+    }
 }
