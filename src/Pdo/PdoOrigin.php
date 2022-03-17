@@ -1,8 +1,13 @@
 <?php
 
+namespace App\Pdo;
+
+use \PDO;
+use \Exception;
+
 class PdoOrigin
 {
-    private const PDO_CONFIG_PATH = 'config/pdo.ini';
+    private const PDO_CONFIG_PATH = __DIR__ . '/../../config/pdo.ini';
 
     public function __construct()
     {

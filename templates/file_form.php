@@ -1,11 +1,3 @@
-<?php
-
-require_once "phpclasses/pdo/ScreenshotPdo.php";
-require_once "phpclasses/Validation.php";
-
-session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,11 +6,11 @@ session_start();
 	<link rel="icon" href="resources/favicon.png" type="image/x-icon">
 	<title>Загрузить скриншот</title>
 
-	<?php if (!isset($_SESSION['userName'])):  ?>
-		<script type="text/javascript" src="js/not-logged-user.js" defer></script>
-	<?php else:  ?>
+	<?php if ($params['session']->has('userName')): ?>
 		<script type="text/javascript" src="js/logged-user.js" defer></script>
 		<script type="text/javascript" src="js/load_file.js" defer></script>
+	<?php else:  ?>
+		<script type="text/javascript" src="js/not-logged-user.js" defer></script>
 	<?php endif; ?>
 
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -30,15 +22,7 @@ session_start();
 	<div class="wrapper">
 		<?php require_once 'parts/header.html'; ?>
 		<main class="content">
-			<?php
-            if (isset($_SESSION['userName'])):
-                try {
-                    $screenshotPdo = new ScreenshotPdo();
-                } catch (Exception $exception) {
-                    echo "Fatal error: " . $exception->getMessage();
-                    exit;
-                }
-            ?>
+			<?php if ($params['session']->has('userName')): ?>
 				<form name="file" class="form form-file-loading" id="fileForm" method="post" enctype="multipart/form-data">
 
 				    <div class="input__wrapper">

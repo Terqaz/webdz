@@ -1,5 +1,7 @@
 var block_show = false;
- 
+
+var lastId = 0;
+
 function scrollMore() {
   let $target = $('#autoscroll-trigger');
 
@@ -17,11 +19,11 @@ function scrollMore() {
     block_show = true;
     $('#autoscroll-trigger').css('display', 'flex')
 
-    let lastId = $('.screenshot-card').filter(':last').attr('data-id'); 
+    let lastId = $('.screenshot-card').last().attr('data-id'); 
     lastId = (lastId === undefined) ? 0 : lastId
 
     $.ajax({ 
-      url: '/ajax.php?lastid=' + lastId,  
+      url: '/screenshots?lastid=' + lastId,  
       dataType: 'html',
       success: function(data){
         if (data.length !== 0) {

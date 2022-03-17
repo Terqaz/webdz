@@ -1,6 +1,9 @@
 <?php
 
-require_once "PdoOrigin.php";
+namespace App\Pdo;
+
+use App\Pdo\PdoOrigin;
+use \PDO;
 
 class ScreenshotPdo extends PdoOrigin
 {

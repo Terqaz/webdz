@@ -41,7 +41,7 @@ fileForm.addEventListener('submit', function (event) {
   loadFileForm.append('isPrivate', fileForm.isPrivate.checked);
   loadFileForm.append('file', file);
 
-  fetch('load_file.php', {
+  fetch('/new-file', {
        method: 'POST',
        body: loadFileForm
     }
@@ -53,7 +53,7 @@ fileForm.addEventListener('submit', function (event) {
 
     } else { // успешная загрузка файла
       hideError();
-      location.href = "/detail.php?id=" + result.id;
+      location.href = "/detail/" + result.id;
     }
   })
   .catch(error => console.log(error));

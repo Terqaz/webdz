@@ -1,27 +1,3 @@
-<?php
-
-require_once "phpclasses/pdo/ScreenshotPdo.php";
-require_once "phpclasses/Validation.php";
-
-session_start();
-
-$screenshotId = @$_GET['id'];
-
-if (!Validation::checkId($screenshotId)) {
-    header('Location: /index.php');
-    exit;
-}
-
-try {
-    $screenshotPdo = new ScreenshotPdo();
-} catch (Exception $exception) {
-    echo "Fatal error: " . $exception->getMessage();
-    exit;
-}
-
-$screenshot = $screenshotPdo->getScreenshot($screenshotId);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +8,7 @@ $screenshot = $screenshotPdo->getScreenshot($screenshotId);
 
 	<script src="js/jquery-3.6.0.min.js"></script>
 
-	<?php if (!isset($_SESSION['userName'])):  ?>
+	<?php if (!isset($session['userName'])):  ?>
 		<script type="text/javascript" src="js/not-logged-user.js" defer></script>
 	<?php else:  ?>
 		<script type="text/javascript" src="js/logged-user.js" defer></script>

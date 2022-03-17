@@ -1,3 +1,7 @@
-/img/
+.*
+php-cs-fixer.phar
+/.*
+/vendor
+/user
 /config/pdo.ini
 /js/jquery-3.6.0.min.js

@@ -171,7 +171,7 @@ regFormElement.addEventListener('submit', function (event) {
   registerForm.append('phone', regFormElement.phone.value);
   registerForm.append('password', password);
 
-  fetch('register.php', {
+  fetch('/register', {
        method: 'POST',
        body: registerForm
     }
@@ -205,7 +205,7 @@ loginFormElement.addEventListener('submit', function (event) {
 
   event.preventDefault();
 
-  fetch('login.php', {
+  fetch('/login', {
        method: 'POST',
        body: loginForm
     }

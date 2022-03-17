@@ -1,6 +1,8 @@
 <?php
 
-require_once "PdoOrigin.php";
+namespace App\Pdo;
+
+use App\Pdo\PdoOrigin;
 
 class UserPdo extends PdoOrigin
 {

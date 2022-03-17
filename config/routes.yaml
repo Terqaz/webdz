@@ -1,0 +1,45 @@
+# ScreenshotController
+
+start:
+    path:       /
+    controller: App\Controller\ScreenshotController::showAll
+    methods:    GET
+
+getScreenshots:
+    path:       /screenshots
+    controller: App\Controller\ScreenshotController::getScreenshots
+    methods:    GET
+    defaults:
+        lastid: 0
+
+detail:
+    path:       /screenshot/{id}
+    controller: App\Controller\ScreenshotController::showDetail
+    methods:    GET
+
+fileLoadForm:
+    path:       /new-file
+    controller: App\Controller\ScreenshotController::showFileLoadForm
+    methods:    GET
+
+fileLoad:
+    path:       /new-file
+    controller: App\Controller\ScreenshotController::loadFile
+    methods:    POST
+
+# AuthController
+
+register:
+    path:       /register
+    controller: App\Controller\AuthController::register
+    methods:    POST
+
+login:
+    path:       /login
+    controller: App\Controller\AuthController::login
+    methods:    POST
+
+logout:
+    path:       /logout
+    controller: App\Controller\AuthController::logout
+    methods:    POST
